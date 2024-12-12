@@ -66,6 +66,7 @@ public class Scrabble {
 			char letter = word.charAt(i);
 			int letterIndex = letter - 'a';
 			score += SCRABBLE_LETTER_VALUES[letterIndex];
+			score *= word.length();
 		}
 		
 		if (word.length() == HAND_SIZE) {
@@ -118,12 +119,12 @@ public class Scrabble {
 			// end-of-line characters.
 			String input = in.readString();
 			if (input.equals(".")) {
-				System.out.println("You have finished this hand.");
+				System.out.println("End of hand.");
 				break;
 		}
-
+		
 		int wordScore = wordScore(input);
-		score += wordScore;
+		score += wordScore; 
 
 		String hand2remove = input;
 		hand = hand.replace(hand2remove, "");
