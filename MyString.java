@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * A library of string functions.
  */
@@ -20,8 +22,14 @@ public class MyString {
      * @return the number of times c appears in str
      */
     public static int countChar(String str, char ch) {
-        //// Replace the following statement with your code
-        return 0;
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ch) {
+                count++;
+
+            }
+        }
+        return count;
     }
 
     /** Returns true if str1 is a subset string str2, false otherwise
@@ -36,8 +44,23 @@ public class MyString {
      * @return true is str1 is a subset of str2, false otherwise
      */
     public static boolean subsetOf(String str1, String str2) {
-         //// Replace the following statement with your code
-        return false;
+  HashMap<Character, Integer> count1 = new HashMap<>();
+        for (char c : str1.toCharArray()) {
+            count1.put(c, count1.getOrDefault(c, 0) + 1);
+        }
+
+        HashMap<Character, Integer> count2 = new HashMap<>();
+        for (char c : str2.toCharArray()) {
+            count2.put(c, count2.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : count1.keySet()) {
+            if (count1.get(c) > count2.getOrDefault(c, 0)) {        
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /** Returns a string which is the same as the given string, with a space
@@ -49,8 +72,18 @@ public class MyString {
      * @return a string consisting of the characters of str, separated by spaces.
      */
     public static String spacedString(String str) {
-        //// Replace the following statement with your code
-        return null;
+        if (str == null || str.isEmpty()) {
+            return "";
+        }
+        
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < str.length(); i++){
+            result.append(str.charAt(i));
+            if (i < str.length() -1) {
+                result.append(" ");  
+            }
+        }
+        return result.toString();
     }
   
     /**
@@ -64,10 +97,20 @@ public class MyString {
      * @return a randomly generated string, consisting of 'n' lowercase letters
      */
     public static String randomStringOfLetters(int n) {
-        //// Replace the following statement with your code
-        return null;
-    }
-
+            if (n <= 0) {
+                return "";
+            }
+            
+            StringBuilder result = new StringBuilder();
+        
+            for (int i = 0; i < n; i++) {
+                int randomIndex = (int) (Math.random() * 26);
+                char randomletter = (char) ('a' + randomIndex);
+                result.append(randomletter);
+            }
+            return result.toString();
+        }
+            
     /**
      * Returns a string consisting of the string str1, minus all the characters in the
      * string str2. Assumes (without checking) that str2 is a subset of str1.
@@ -78,8 +121,14 @@ public class MyString {
      * @return a string consisting of str1 minus all the characters of str2
      */
     public static String remove(String str1, String str2) {
-       //// Replace the following statement with your code
-        return null;
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i <str1.length(); i++) {
+            char currentChar = str1.charAt(i);
+            if (str2.indexOf(currentChar) == -1){
+                result.append(currentChar);
+            }
+        }
+        return result.toString();
     }
 
     /**
