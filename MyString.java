@@ -124,7 +124,9 @@ public class MyString {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i <str1.length(); i++) {
             char currentChar = str1.charAt(i);
-            if (str2.indexOf(currentChar) == -1){
+            if (str2.indexOf(currentChar) != -1) {
+                str2 = str2.replaceFirst(String.valueOf(currentChar), "");
+            } else {
                 result.append(currentChar);
             }
         }
