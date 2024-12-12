@@ -131,8 +131,9 @@ public class Scrabble {
 				System.out.println("Invaild word. Try again.");
 			}
 			else if (isWordInDictionary(input)) {
-				score += wordScore(input);
-				System.out.println(input + " earned " + wordScore(input + " points. Score: " + score + " points\n"));
+				int wordScore = wordScore(input);
+				score += wordScore;
+				System.out.println(input + " earned " + wordScore + " points. Score: " + score + " points\n");
 				hand = MyString.remove(hand, input);
 			}
 			else {
@@ -172,7 +173,7 @@ public class Scrabble {
 			System.out.println("Invalid input. Please enter 'n' to play a new hand, or 'e' to end the game.");
 		}
 	}
-	
+
 	System.out.println("playGame() method exists and can be called");
 }
 
