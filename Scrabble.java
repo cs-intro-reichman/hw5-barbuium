@@ -59,16 +59,16 @@ public class Scrabble {
 	// Returns the Scrabble score of the given word.
 	// If the length of the word equals the length of the hand, adds 50 points to the score.
 	// If the word includes the sequence "runi", adds 1000 points to the game.
-	public static int wordScore(String word) {
+	public static int wordScore(String word, String hand) {
 		int score = 0;
 		
 		for (int i = 0; i < word.length(); i++) {
 			char letter = word.charAt(i);
 			int letterIndex = letter - 'a';
 			score += SCRABBLE_LETTER_VALUES[letterIndex];
-			score *= word.length();
 		}
 		
+		score = score * word.length();
 		if (word.length() == HAND_SIZE) {
 			score += 50;
 		}
@@ -117,11 +117,6 @@ public class Scrabble {
 			// Reads the next "token" from the keyboard. A token is defined as a string of 
 			// non-whitespace characters. Whitespace is either space characters, or  
 			// end-of-line characters.
-			String input = in.readString();
-			if (input.equals(".")) {
-				System.out.println("End of hand.");
-				break;
-		}
 		
 		int wordScore = wordScore(input);
 		score += wordScore; 
