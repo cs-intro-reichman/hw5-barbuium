@@ -73,10 +73,9 @@ public class Scrabble {
 			score += 50;
 		}
 
-		if (word.contains("runi")) {
+		if (MyString.subsetOf("runi", word)) {
 			score += 1000;
 		}
-
 		return score;
 	}
 
@@ -117,28 +116,27 @@ public class Scrabble {
 			// Reads the next "token" from the keyboard. A token is defined as a string of 
 			// non-whitespace characters. Whitespace is either space characters, or  
 			// end-of-line characters.
-		String input = in.readString();
-		if (input.equals(".")) {
-				System.out.println("You have finished this hand.");
-				break;
-			}	
-		
-		int wordScore = wordScore(input);
-		score += wordScore; 
-
-		String hand2remove = hand;
-		hand = hand.replace(hand2remove, "");
-
-
-		System.out.println("Word score: " + wordScore);
-		System.out.println("Total score: " + score);
-	}
-		
-		if (hand.length() == 0) {
-	        System.out.println("Ran out of letters. Total score: " + score + " points");
-		} else {
-			System.out.println("End of hand. Total score: " + score + " points");
+			String input = in.readString();
+			if (input.equals(".")) {
+					break;
+				}
+			else if (!MyString.subsetOf(input, hand)) {
+				System.out.println("Invaild word. Try again.");
+			}
+			else if (isWordInDictionary(input)) {
+				score += wordScore(input);
+				System.out.println(input + " earned " + wordScore(input + " points. Score: " + score + " points\n"));
+				hand = MyString.remove(hand, input);
+			}
+			else {
+				System.out.println("No such word in dictionary. Try again.");
+			}
 		}
+			if (hand.length() == 0) {
+				System.out.println("Ran out of letters. Total score: " + score + " points");
+			} else {
+				System.out.println("End of hand. Total score: " + score + " points");
+			}
 	}
 
 	// Plays a Scrabble game. Prompts the user to enter 'n' for playing a new hand, or 'e'
