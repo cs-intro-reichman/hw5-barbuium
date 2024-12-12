@@ -64,9 +64,16 @@ public class Scrabble {
 		
 		for (int i = 0; i < word.length(); i++) {
 			char letter = word.charAt(i);
-			int letterIndex = letter - 'a';
-			score += SCRABBLE_LETTER_VALUES[letterIndex];
+
+			if (letter >= 'a' && letter <= 'z') {
+				int letterIndex = letter - 'a';
+				score += SCRABBLE_LETTER_VALUES[letterIndex];
+			} else {
+				System.out.println("Invalid character in word: " + letter);
+				return 0;
+			}
 		}
+			
 		
 		score = score * word.length();
 		if (word.length() == HAND_SIZE) {
@@ -153,19 +160,20 @@ public class Scrabble {
 			// Gets the user's input, which is all the characters entered by 
 			// the user until the user enter the ENTER character.
 			String input = in.readString().toLowerCase();
+			
 			if (input.equals("n")) {
 				String hand = createHand();
 				System.out.println("New hand: " + hand);
 				playHand(hand);
-			}
-			else if (input.equals("e")) {
+			} else if (input.equals("e")) {
 				System.out.println("Ending the game");
-			break;
-		}
-		else {
+				break;
+			} else {
 			System.out.println("Invalid input. Please enter 'n' to play a new hand, or 'e' to end the game.");
 		}
 	}
+	
+	System.out.println("playGame() method exists and can be called");
 }
 
 	public static void main(String[] args) {
