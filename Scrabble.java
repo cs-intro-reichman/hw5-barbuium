@@ -1,6 +1,9 @@
 /*
  * RUNI version of the Scrabble game.
  */
+
+import javax.swing.border.StrokeBorder;
+
 public class Scrabble {
 
 	// Note 1: "Class variables", like the five class-level variables declared below,
@@ -114,11 +117,12 @@ public class Scrabble {
     // 3. The user is prompted to enter another word, or '.' to end the hand. 
 	public static void playHand(String hand) {
 		int score = 0;
+		String newHand = hand;
 		// Declares the variable in to refer to an object of type In, and initializes it to represent
 		// the stream of characters coming from the keyboard. Used for reading the user's inputs.   
 		In in = new In();
-		while (hand.length() > 0) {
-			System.out.println("Current Hand: " + MyString.spacedString(hand));
+		while (newHand.length() > 0) {
+			System.out.println("Current Hand: " + MyString.spacedString(newHand));
 			System.out.println("Enter a word, or '.' to finish playing this hand:");
 			// Reads the next "token" from the keyboard. A token is defined as a string of 
 			// non-whitespace characters. Whitespace is either space characters, or  
@@ -126,21 +130,17 @@ public class Scrabble {
 			String input = in.readString();
 			if (input.equals(".")) {
 					break;
-				}
-			else if (!MyString.subsetOf(input, hand)) {
+			} else if (!MyString.subsetOf(input, newHand)) {
 				System.out.println("Invaild word. Try again.");
-			}
-			else if (isWordInDictionary(input)) {
-				int wordScore = wordScore(input);
-				score += wordScore;
-				System.out.println(input + " earned " + wordScore + " points. Score: " + score + " points\n");
-				hand = MyString.remove(hand, input);
-			}
-			else {
+			} else if (isWordInDictionary(input)) {
+				score += wordScore(input);
+				System.out.println(input + " earned " + wordScore(input) + " points. Score: " + score + " points\n");
+				newHand = MyString.remove(newHand, input);
+			} else {
 				System.out.println("No such word in dictionary. Try again.");
 			}
 		}
-			if (hand.length() == 0) {
+			if (newHand.length() == 0) {
 				System.out.println("Ran out of letters. Total score: " + score + " points");
 			} else {
 				System.out.println("End of hand. Total score: " + score + " points");
@@ -160,21 +160,21 @@ public class Scrabble {
 			System.out.println("Enter n to deal a new hand, or e to end the game:");
 			// Gets the user's input, which is all the characters entered by 
 			// the user until the user enter the ENTER character.
-			String input = in.readString().toLowerCase();
-			
+			String input = in.readString();
 			if (input.equals("n")) {
 				String hand = createHand();
 				System.out.println("New hand: " + hand);
 				playHand(hand);
-			} else if (input.equals("e")) {
+			} 
+			else if (input.equals("e")) {
 				System.out.println("Ending the game");
-				break;
-			} else {
-			System.out.println("Invalid input. Please enter 'n' to play a new hand, or 'e' to end the game.");
+			break;
 		}
+		else {
+			System.out.println("Invalid input. Please enter 'n' to play a new hand, or 'e' to end the game.");
+		} 
 	}
 
-	System.out.println("playGame() method exists and can be called");
 }
 
 	public static void main(String[] args) {
